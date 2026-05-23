@@ -134,7 +134,7 @@
   <div class="header-left">
     <div class="status-dot"></div>
     <div class="header-logo">AI Chat</div>
-    <div class="header-model">meta-llama-3.3-70b (free)</div>
+    <div class="header-model">deepseek-chat (free)</div>
   </div>
   <div class="header-actions">
     <button class="icon-btn" onclick="openPanel()">⚙ System</button>
@@ -322,7 +322,7 @@
           'X-Title': 'AI Chat'
         },
         body: JSON.stringify({
-          model: 'meta-llama/llama-3.3-70b-instruct:free',
+          model: 'deepseek/deepseek-chat:free',
           max_tokens: 2048,
           messages: [
             { role: 'system', content: systemPrompt },
