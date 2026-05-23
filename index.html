@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Claude AI Chat</title>
+<title>AI Chat</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap');
 
@@ -34,14 +34,11 @@
     overflow: hidden;
   }
 
-  /* Animated background */
   body::before {
     content: '';
     position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
     background:
       radial-gradient(ellipse at 20% 20%, rgba(124,106,247,0.08) 0%, transparent 50%),
       radial-gradient(ellipse at 80% 80%, rgba(192,132,252,0.06) 0%, transparent 50%);
@@ -49,16 +46,12 @@
     z-index: 0;
   }
 
-  /* ── SETUP SCREEN ── */
+  /* SETUP SCREEN */
   #setup-screen {
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    padding: 2rem;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100; padding: 2rem;
   }
 
   .setup-card {
@@ -66,44 +59,42 @@
     border: 1px solid var(--border);
     border-radius: 20px;
     padding: 3rem 2.5rem;
-    max-width: 440px;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
+    max-width: 460px; width: 100%;
+    position: relative; overflow: hidden;
   }
 
   .setup-card::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
+    top: 0; left: 0; right: 0; height: 2px;
     background: linear-gradient(90deg, var(--accent), var(--accent2));
   }
 
   .setup-logo {
     font-family: 'Syne', sans-serif;
-    font-size: 2rem;
-    font-weight: 800;
+    font-size: 2rem; font-weight: 800;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 0.5rem;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin-bottom: 0.5rem;
   }
 
   .setup-subtitle {
-    color: var(--text-muted);
-    font-size: 0.8rem;
-    margin-bottom: 2.5rem;
-    line-height: 1.6;
+    color: var(--text-muted); font-size: 0.8rem;
+    margin-bottom: 2rem; line-height: 1.7;
+  }
+
+  .free-badge {
+    display: inline-block;
+    background: rgba(52,211,153,0.12);
+    border: 1px solid rgba(52,211,153,0.3);
+    color: #34d399;
+    font-size: 0.7rem; padding: 0.2rem 0.6rem;
+    border-radius: 20px; margin-bottom: 1.5rem;
   }
 
   .setup-label {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.6rem;
+    font-size: 0.7rem; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.6rem;
   }
 
   .setup-input {
@@ -114,10 +105,8 @@
     padding: 0.9rem 1.1rem;
     color: var(--text);
     font-family: 'DM Mono', monospace;
-    font-size: 0.85rem;
-    outline: none;
-    transition: border-color 0.2s;
-    margin-bottom: 1.5rem;
+    font-size: 0.85rem; outline: none;
+    transition: border-color 0.2s; margin-bottom: 1.5rem;
   }
 
   .setup-input:focus { border-color: var(--accent); }
@@ -125,42 +114,44 @@
   .setup-btn {
     width: 100%;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
-    border: none;
-    border-radius: 10px;
-    padding: 0.95rem;
-    color: white;
+    border: none; border-radius: 10px;
+    padding: 0.95rem; color: white;
     font-family: 'Syne', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: opacity 0.2s, transform 0.1s;
-    letter-spacing: 0.03em;
+    font-size: 0.95rem; font-weight: 700;
+    cursor: pointer; transition: opacity 0.2s, transform 0.1s;
   }
 
   .setup-btn:hover { opacity: 0.9; transform: translateY(-1px); }
-  .setup-btn:active { transform: translateY(0); }
 
-  .setup-hint {
-    margin-top: 1.2rem;
-    font-size: 0.72rem;
+  .setup-steps {
+    margin-top: 1.5rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
-    line-height: 1.7;
+    line-height: 2;
   }
 
-  .setup-hint a {
-    color: var(--accent);
-    text-decoration: none;
+  .setup-steps a { color: var(--accent); text-decoration: none; }
+  .setup-steps a:hover { text-decoration: underline; }
+
+  .step-num {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    text-align: center; line-height: 18px;
+    font-size: 0.65rem; font-weight: 700;
+    margin-right: 0.4rem;
   }
 
-  .setup-hint a:hover { text-decoration: underline; }
-
-  /* ── HEADER ── */
+  /* HEADER */
   #header {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    position: relative; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
     padding: 1rem 1.5rem;
     border-bottom: 1px solid var(--border);
     background: rgba(10,10,15,0.8);
@@ -168,25 +159,18 @@
     flex-shrink: 0;
   }
 
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-  }
+  .header-left { display: flex; align-items: center; gap: 0.8rem; }
 
   .header-logo {
     font-family: 'Syne', sans-serif;
-    font-size: 1.15rem;
-    font-weight: 800;
+    font-size: 1.15rem; font-weight: 800;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .status-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
+    width: 7px; height: 7px; border-radius: 50%;
     background: var(--success);
     box-shadow: 0 0 8px var(--success);
     animation: pulse 2s infinite;
@@ -198,56 +182,41 @@
   }
 
   .header-model {
-    font-size: 0.7rem;
-    color: var(--text-muted);
+    font-size: 0.7rem; color: var(--text-muted);
     background: var(--surface2);
     border: 1px solid var(--border);
-    padding: 0.3rem 0.7rem;
-    border-radius: 20px;
+    padding: 0.3rem 0.7rem; border-radius: 20px;
   }
 
-  .header-actions {
-    display: flex;
-    gap: 0.5rem;
-  }
+  .header-actions { display: flex; gap: 0.5rem; }
 
   .icon-btn {
     background: var(--surface2);
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 0.45rem 0.75rem;
-    color: var(--text-muted);
-    cursor: pointer;
+    color: var(--text-muted); cursor: pointer;
     font-size: 0.75rem;
     font-family: 'DM Mono', monospace;
     transition: all 0.2s;
   }
 
-  .icon-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
+  .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* ── MESSAGES ── */
+  /* MESSAGES */
   #messages {
-    position: relative;
-    z-index: 1;
-    flex: 1;
-    overflow-y: auto;
+    position: relative; z-index: 1;
+    flex: 1; overflow-y: auto;
     padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    display: flex; flex-direction: column; gap: 1rem;
     scroll-behavior: smooth;
   }
 
   #messages::-webkit-scrollbar { width: 4px; }
-  #messages::-webkit-scrollbar-track { background: transparent; }
   #messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
   .message {
-    display: flex;
-    gap: 0.8rem;
+    display: flex; gap: 0.8rem;
     max-width: 800px;
     animation: fadeUp 0.3s ease;
   }
@@ -261,35 +230,19 @@
   .message.assistant { align-self: flex-start; }
 
   .avatar {
-    width: 32px; height: 32px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 700;
-    flex-shrink: 0;
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
     font-family: 'Syne', sans-serif;
   }
 
-  .message.user .avatar {
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    color: white;
-  }
-
-  .message.assistant .avatar {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    color: var(--accent);
-  }
+  .message.user .avatar { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; }
+  .message.assistant .avatar { background: var(--surface2); border: 1px solid var(--border); color: var(--accent); }
 
   .bubble {
-    padding: 0.85rem 1.1rem;
-    border-radius: 14px;
-    font-size: 0.87rem;
-    line-height: 1.75;
-    max-width: calc(100% - 44px);
-    word-break: break-word;
+    padding: 0.85rem 1.1rem; border-radius: 14px;
+    font-size: 0.87rem; line-height: 1.75;
+    max-width: calc(100% - 44px); word-break: break-word;
   }
 
   .message.user .bubble {
@@ -304,62 +257,34 @@
     border-bottom-left-radius: 4px;
   }
 
-  /* Markdown-like formatting */
   .bubble strong { color: var(--accent2); font-weight: 600; }
   .bubble em { color: var(--text-muted); }
-
   .bubble code {
     background: rgba(124,106,247,0.12);
     border: 1px solid rgba(124,106,247,0.2);
-    padding: 0.1em 0.4em;
-    border-radius: 4px;
-    font-size: 0.85em;
-    color: var(--accent2);
+    padding: 0.1em 0.4em; border-radius: 4px;
+    font-size: 0.85em; color: var(--accent2);
   }
-
   .bubble pre {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1rem;
-    margin: 0.6rem 0;
-    overflow-x: auto;
-    font-size: 0.82rem;
-    line-height: 1.6;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1rem; margin: 0.6rem 0;
+    overflow-x: auto; font-size: 0.82rem; line-height: 1.6;
   }
-
-  .bubble pre code {
-    background: none;
-    border: none;
-    padding: 0;
-    color: var(--text);
-  }
-
+  .bubble pre code { background: none; border: none; padding: 0; color: var(--text); }
   .bubble p { margin-bottom: 0.5rem; }
   .bubble p:last-child { margin-bottom: 0; }
-
-  .bubble ul, .bubble ol {
-    padding-left: 1.4rem;
-    margin: 0.4rem 0;
-  }
-
+  .bubble ul, .bubble ol { padding-left: 1.4rem; margin: 0.4rem 0; }
   .bubble li { margin-bottom: 0.3rem; }
 
-  /* Typing indicator */
   .typing-bubble {
-    display: flex;
-    gap: 5px;
-    align-items: center;
+    display: flex; gap: 5px; align-items: center;
     padding: 0.85rem 1.1rem;
-    background: var(--ai-bubble);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    border-bottom-left-radius: 4px;
+    background: var(--ai-bubble); border: 1px solid var(--border);
+    border-radius: 14px; border-bottom-left-radius: 4px;
   }
 
   .typing-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
+    width: 6px; height: 6px; border-radius: 50%;
     background: var(--text-muted);
     animation: typingDot 1.2s infinite;
   }
@@ -371,116 +296,69 @@
     50% { opacity: 1; transform: scale(1.1); }
   }
 
-  /* Welcome screen */
   .welcome {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 2rem;
-    gap: 1rem;
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 2rem; gap: 1rem;
   }
 
   .welcome-title {
     font-family: 'Syne', sans-serif;
-    font-size: 2rem;
-    font-weight: 800;
+    font-size: 2rem; font-weight: 800;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .welcome-sub {
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    max-width: 360px;
-    line-height: 1.8;
-  }
+  .welcome-sub { color: var(--text-muted); font-size: 0.85rem; max-width: 360px; line-height: 1.8; }
 
-  .suggestions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    justify-content: center;
-    margin-top: 0.5rem;
-  }
+  .suggestions { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin-top: 0.5rem; }
 
   .suggestion-chip {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 0.5rem 1rem;
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all 0.2s;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 0.5rem 1rem;
+    font-size: 0.78rem; color: var(--text-muted);
+    cursor: pointer; transition: all 0.2s;
     font-family: 'DM Mono', monospace;
   }
 
-  .suggestion-chip:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: var(--glow);
-  }
+  .suggestion-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--glow); }
 
-  /* ── INPUT AREA ── */
+  /* INPUT */
   #input-area {
-    position: relative;
-    z-index: 10;
+    position: relative; z-index: 10;
     padding: 1rem 1.5rem 1.5rem;
     border-top: 1px solid var(--border);
     background: rgba(10,10,15,0.8);
-    backdrop-filter: blur(12px);
-    flex-shrink: 0;
+    backdrop-filter: blur(12px); flex-shrink: 0;
   }
 
   .input-wrapper {
-    display: flex;
-    align-items: flex-end;
-    gap: 0.75rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
+    display: flex; align-items: flex-end; gap: 0.75rem;
+    background: var(--surface); border: 1px solid var(--border);
     border-radius: 14px;
     padding: 0.75rem 0.75rem 0.75rem 1.1rem;
     transition: border-color 0.2s;
   }
 
-  .input-wrapper:focus-within {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px var(--glow);
-  }
+  .input-wrapper:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--glow); }
 
   #user-input {
-    flex: 1;
-    background: none;
-    border: none;
-    outline: none;
-    color: var(--text);
-    font-family: 'DM Mono', monospace;
-    font-size: 0.88rem;
-    line-height: 1.6;
-    resize: none;
-    max-height: 150px;
-    overflow-y: auto;
+    flex: 1; background: none; border: none; outline: none;
+    color: var(--text); font-family: 'DM Mono', monospace;
+    font-size: 0.88rem; line-height: 1.6;
+    resize: none; max-height: 150px; overflow-y: auto;
   }
 
   #user-input::placeholder { color: var(--text-muted); }
 
   #send-btn {
     background: linear-gradient(135deg, var(--accent), var(--accent2));
-    border: none;
-    border-radius: 9px;
+    border: none; border-radius: 9px;
     width: 36px; height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: opacity 0.2s, transform 0.1s;
-    color: white;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    transition: opacity 0.2s, transform 0.1s; color: white;
   }
 
   #send-btn:hover { opacity: 0.85; transform: scale(1.05); }
@@ -488,97 +366,63 @@
   #send-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
 
   .input-footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0.5rem;
-    font-size: 0.68rem;
-    color: var(--text-muted);
-    padding: 0 0.2rem;
+    display: flex; justify-content: space-between;
+    margin-top: 0.5rem; font-size: 0.68rem;
+    color: var(--text-muted); padding: 0 0.2rem;
   }
 
-  /* Error message */
   .error-bubble {
     background: rgba(239,68,68,0.08);
     border: 1px solid rgba(239,68,68,0.25);
-    color: #fca5a5;
-    padding: 0.7rem 1rem;
-    border-radius: 10px;
-    font-size: 0.82rem;
-    margin: 0.5rem 0;
+    color: #fca5a5; padding: 0.7rem 1rem;
+    border-radius: 10px; font-size: 0.82rem; margin: 0.5rem 0;
   }
 
-  /* System prompt panel */
+  /* SYS PANEL */
   #sys-panel {
-    position: fixed;
-    top: 0; right: -400px;
+    position: fixed; top: 0; right: -400px;
     width: 380px; height: 100%;
-    background: var(--surface);
-    border-left: 1px solid var(--border);
-    z-index: 200;
-    transition: right 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem;
-    gap: 1rem;
+    background: var(--surface); border-left: 1px solid var(--border);
+    z-index: 200; transition: right 0.3s ease;
+    display: flex; flex-direction: column;
+    padding: 1.5rem; gap: 1rem;
   }
 
   #sys-panel.open { right: 0; }
 
   .panel-title {
     font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    font-weight: 700; font-size: 1rem;
+    display: flex; justify-content: space-between; align-items: center;
   }
 
   #sys-input {
-    flex: 1;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1rem;
-    color: var(--text);
+    flex: 1; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 1rem; color: var(--text);
     font-family: 'DM Mono', monospace;
-    font-size: 0.82rem;
-    line-height: 1.6;
-    resize: none;
-    outline: none;
+    font-size: 0.82rem; line-height: 1.6;
+    resize: none; outline: none;
   }
 
   #sys-input:focus { border-color: var(--accent); }
 
   .save-sys-btn {
-    background: var(--accent);
-    border: none;
-    border-radius: 8px;
-    padding: 0.7rem;
-    color: white;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: opacity 0.2s;
+    background: var(--accent); border: none;
+    border-radius: 8px; padding: 0.7rem; color: white;
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.85rem; cursor: pointer; transition: opacity 0.2s;
   }
 
   .save-sys-btn:hover { opacity: 0.8; }
 
   .overlay {
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background: rgba(0,0,0,0.5);
-    z-index: 150;
-    display: none;
+    z-index: 150; display: none;
   }
 
   .overlay.show { display: block; }
-
-  @media (max-width: 600px) {
-    #messages { padding: 1rem; }
-    #input-area { padding: 0.75rem 1rem 1rem; }
-    #sys-panel { width: 100%; right: -100%; }
-  }
 </style>
 </head>
 <body>
@@ -586,14 +430,18 @@
 <!-- Setup Screen -->
 <div id="setup-screen">
   <div class="setup-card">
-    <div class="setup-logo">Claude Chat</div>
-    <div class="setup-subtitle">Apni Anthropic API key enter karein shuru karne ke liye.<br>Key sirf aapke browser mein store hoti hai.</div>
-    <div class="setup-label">Anthropic API Key</div>
-    <input type="password" class="setup-input" id="api-key-input" placeholder="sk-ant-api03-..." />
+    <div class="setup-logo">AI Chat</div>
+    <div class="setup-subtitle">Google Gemini API use karta hai — bilkul free, koi credit card nahi chahiye.</div>
+    <div class="free-badge">✓ 100% FREE — No Credit Card</div>
+    <div class="setup-label">Google Gemini API Key</div>
+    <input type="password" class="setup-input" id="api-key-input" placeholder="AIza..." />
     <button class="setup-btn" onclick="saveKey()">Shuru Karein →</button>
-    <div class="setup-hint">
-      API key hasil karein: <a href="https://console.anthropic.com/settings/api-keys" target="_blank">console.anthropic.com</a><br>
-      <br>⚠️ Key sirf aapke local browser storage mein save hoti hai — koi server nahi.
+    <div class="setup-steps">
+      <div><span class="step-num">1</span> <a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a> kholen</div>
+      <div><span class="step-num">2</span> Google account se sign in karein</div>
+      <div><span class="step-num">3</span> <strong style="color:var(--text)">"Get API Key"</strong> click karein</div>
+      <div><span class="step-num">4</span> <strong style="color:var(--text)">"Create API Key"</strong> click karein</div>
+      <div><span class="step-num">5</span> Key copy karein aur yahan paste karein</div>
     </div>
   </div>
 </div>
@@ -607,7 +455,7 @@
     System Prompt
     <button class="icon-btn" onclick="closePanel()">✕</button>
   </div>
-  <textarea id="sys-input" placeholder="Claude ko koi role assign karein, jaise: 'Tum ek helpful Urdu assistant ho...'"></textarea>
+  <textarea id="sys-input" placeholder="AI ko koi role assign karein, jaise: 'Tum ek helpful Urdu assistant ho...'"></textarea>
   <button class="save-sys-btn" onclick="saveSysPrompt()">Save Karein</button>
 </div>
 
@@ -615,8 +463,8 @@
 <div id="header">
   <div class="header-left">
     <div class="status-dot"></div>
-    <div class="header-logo">Claude Chat</div>
-    <div class="header-model">claude-sonnet-4-6</div>
+    <div class="header-logo">AI Chat</div>
+    <div class="header-model">gemini-2.0-flash</div>
   </div>
   <div class="header-actions">
     <button class="icon-btn" onclick="openPanel()">⚙ System</button>
@@ -629,7 +477,7 @@
 <div id="messages">
   <div class="welcome" id="welcome">
     <div class="welcome-title">Salaam! 👋</div>
-    <div class="welcome-sub">Main Claude hoon — Anthropic ka AI. Koi bhi sawaal poochhein, koi bhi kaam karwayein.</div>
+    <div class="welcome-sub">Main ek AI assistant hoon. Koi bhi sawaal poochhein, koi bhi kaam karwayein.</div>
     <div class="suggestions">
       <div class="suggestion-chip" onclick="suggest(this)">Urdu mein explain karein</div>
       <div class="suggestion-chip" onclick="suggest(this)">Code likhne mein madad karein</div>
@@ -657,29 +505,25 @@
 </div>
 
 <script>
-  // ── STATE ──
-  let apiKey = localStorage.getItem('claude_api_key') || '';
-  let systemPrompt = localStorage.getItem('claude_sys_prompt') || 'You are a helpful, friendly AI assistant. Respond in the same language the user writes in.';
+  let apiKey = localStorage.getItem('gemini_api_key') || '';
+  let systemPrompt = localStorage.getItem('gemini_sys_prompt') || 'You are a helpful, friendly AI assistant. Respond in the same language the user writes in.';
   let conversationHistory = [];
   let isLoading = false;
 
-  // ── INIT ──
   document.addEventListener('DOMContentLoaded', () => {
-    if (apiKey) {
-      document.getElementById('setup-screen').style.display = 'none';
-    }
+    if (apiKey) document.getElementById('setup-screen').style.display = 'none';
     document.getElementById('sys-input').value = systemPrompt;
     setupInput();
   });
 
   function saveKey() {
     const key = document.getElementById('api-key-input').value.trim();
-    if (!key.startsWith('sk-ant')) {
-      alert('Valid API key enter karein (sk-ant- se shuru honi chahiye)');
+    if (!key.startsWith('AIza')) {
+      alert('Valid Gemini API key enter karein (AIza se shuru honi chahiye)');
       return;
     }
     apiKey = key;
-    localStorage.setItem('claude_api_key', key);
+    localStorage.setItem('gemini_api_key', key);
     document.getElementById('setup-screen').style.display = 'none';
   }
 
@@ -690,7 +534,7 @@
 
   function saveSysPrompt() {
     systemPrompt = document.getElementById('sys-input').value;
-    localStorage.setItem('claude_sys_prompt', systemPrompt);
+    localStorage.setItem('gemini_sys_prompt', systemPrompt);
     closePanel();
     showToast('System prompt save ho gaya!');
   }
@@ -711,7 +555,7 @@
     msgs.innerHTML = `
       <div class="welcome" id="welcome">
         <div class="welcome-title">Salaam! 👋</div>
-        <div class="welcome-sub">Main Claude hoon — Anthropic ka AI. Koi bhi sawaal poochhein.</div>
+        <div class="welcome-sub">Main ek AI assistant hoon. Koi bhi sawaal poochhein.</div>
         <div class="suggestions">
           <div class="suggestion-chip" onclick="suggest(this)">Urdu mein explain karein</div>
           <div class="suggestion-chip" onclick="suggest(this)">Code likhne mein madad karein</div>
@@ -726,7 +570,6 @@
     sendMessage();
   }
 
-  // ── INPUT SETUP ──
   function setupInput() {
     const input = document.getElementById('user-input');
     input.addEventListener('input', () => {
@@ -734,20 +577,15 @@
       input.style.height = Math.min(input.scrollHeight, 150) + 'px';
       document.getElementById('char-count').textContent = input.value.length + ' chars';
     });
-
     input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-      }
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
     });
   }
 
-  // ── RENDER MARKDOWN (simple) ──
   function renderMarkdown(text) {
     return text
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-      .replace(/```(\w*)\n?([\s\S]*?)```/g, '<pre><code class="lang-$1">$2</code></pre>')
+      .replace(/```(\w*)\n?([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
       .replace(/`([^`]+)`/g, '<code>$1</code>')
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
       .replace(/\*([^*]+)\*/g, '<em>$1</em>')
@@ -760,46 +598,35 @@
       .replace(/\n/g, '<br>');
   }
 
-  // ── ADD MESSAGE ──
   function addMessage(role, content, isError = false) {
     const welcome = document.getElementById('welcome');
     if (welcome) welcome.remove();
-
     const msgs = document.getElementById('messages');
     const div = document.createElement('div');
     div.className = `message ${role}`;
-
-    const avatar = role === 'user' ? 'U' : 'C';
+    const avatar = role === 'user' ? 'U' : 'AI';
     const bubbleContent = isError
       ? `<div class="error-bubble">${content}</div>`
       : `<div class="bubble"><p>${renderMarkdown(content)}</p></div>`;
-
-    div.innerHTML = `
-      <div class="avatar">${avatar}</div>
-      ${bubbleContent}
-    `;
-
+    div.innerHTML = `<div class="avatar">${avatar}</div>${bubbleContent}`;
     msgs.appendChild(div);
     msgs.scrollTop = msgs.scrollHeight;
-    return div;
   }
 
   function addTypingIndicator() {
     const welcome = document.getElementById('welcome');
     if (welcome) welcome.remove();
-
     const msgs = document.getElementById('messages');
     const div = document.createElement('div');
     div.className = 'message assistant';
     div.id = 'typing-indicator';
     div.innerHTML = `
-      <div class="avatar">C</div>
+      <div class="avatar">AI</div>
       <div class="typing-bubble">
         <div class="typing-dot"></div>
         <div class="typing-dot"></div>
         <div class="typing-dot"></div>
-      </div>
-    `;
+      </div>`;
     msgs.appendChild(div);
     msgs.scrollTop = msgs.scrollHeight;
   }
@@ -809,7 +636,6 @@
     if (el) el.remove();
   }
 
-  // ── SEND MESSAGE ──
   async function sendMessage() {
     const input = document.getElementById('user-input');
     const text = input.value.trim();
@@ -822,26 +648,21 @@
     document.getElementById('char-count').textContent = '0 chars';
 
     addMessage('user', text);
-    conversationHistory.push({ role: 'user', content: text });
-
+    conversationHistory.push({ role: 'user', parts: [{ text }] });
     addTypingIndicator();
 
     try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true'
-        },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 2048,
-          system: systemPrompt,
-          messages: conversationHistory
-        })
-      });
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            system_instruction: { parts: [{ text: systemPrompt }] },
+            contents: conversationHistory
+          })
+        }
+      );
 
       if (!response.ok) {
         const err = await response.json();
@@ -849,11 +670,11 @@
       }
 
       const data = await response.json();
-      const reply = data.content[0].text;
+      const reply = data.candidates[0].content.parts[0].text;
 
       removeTypingIndicator();
       addMessage('assistant', reply);
-      conversationHistory.push({ role: 'assistant', content: reply });
+      conversationHistory.push({ role: 'model', parts: [{ text: reply }] });
 
     } catch (err) {
       removeTypingIndicator();
@@ -866,10 +687,9 @@
     }
   }
 
-  // ── TOAST ──
   function showToast(msg) {
     const t = document.createElement('div');
-    t.style.cssText = `position:fixed;bottom:5rem;left:50%;transform:translateX(-50%);background:var(--accent);color:white;padding:0.5rem 1.2rem;border-radius:20px;font-size:0.8rem;font-family:'DM Mono',monospace;z-index:999;animation:fadeUp 0.3s ease`;
+    t.style.cssText = `position:fixed;bottom:5rem;left:50%;transform:translateX(-50%);background:var(--accent);color:white;padding:0.5rem 1.2rem;border-radius:20px;font-size:0.8rem;font-family:'DM Mono',monospace;z-index:999`;
     t.textContent = msg;
     document.body.appendChild(t);
     setTimeout(() => t.remove(), 2500);
